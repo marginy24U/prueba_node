@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(myconn(mysql, dbOptions, 'request'))
 app.use('/api', router); 	// declaro el uso de mis rutas
 
-const PORT = process.env.APP_PORT || 3050; // puerto declarado en archivo .env 
+const PORT = process.env.APP_PORT || 3001; // puerto declarado en archivo .env 
 
 app.listen(PORT, ()=> {
 	console.log(`http://localhost:${PORT}/`)// retorno url con puerto
