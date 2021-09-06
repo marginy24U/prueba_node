@@ -1,0 +1,27 @@
+- npx sequelize-cli model:generate --name Cliente --attributes nombre:string,telefono:integer,direccion:string,ciudad:string,email:string,ruc:string,persona_contacto:string
+
+- npx sequelize-cli model:generate --name Remision --attributes id_cliente:integer,fecha:date,monto:decimal,cancelado:string
+
+- npx sequelize-cli model:generate --name Factura --attributes id_usuario:integer,id_cliente:integer,fecha:date,monto:decimal,credito:string,nruc:string,nombre_cliente:string,fecha_venc:date,iva:decimal,num_factura:integer,anulada:string,tcambio:string
+
+- npx sequelize-cli model:generate --name Usuario --attributes nombre:string,apellido:string,nick:string,pass:string,cargo:string,permiso:string
+
+- npx sequelize-cli model:generate --name Factura_Detalle --attributes id_factura:integer,id_producto:integer,cantidad:integer,precio:decimal,porcentaje:integer
+
+- npx sequelize-cli model:generate --name Producto --attributes marca:string,modelo:string,stock:string,minimo:integer,costo_impo:decimal,precio1:decimal,precio2:decimal,precio3:decimal,precio4:decimal,comision1:integer,comision2:integer,comision3:integer,comision4:integer,linea:string,descripcion:string
+
+- npx sequelize-cli model:generate --name Regalias --attributes id_producto:integer,cantidad:integer,descripcion:string,fecha:date
+
+- npx sequelize-cli model:generate --name Materia_Prima --attributes nombre:string,descripcion:string,unidad:string,stock:integer,minimo:integer,ubicacion:string
+
+- npx sequelize-cli model:generate --name Solicitud_Compra --attributes id_material:integer,id_usuario:integer,cantidad:integer,fecha_solicitud:date,prioridad:integer,estado:string,descripcion:string
+
+- npx sequelize-cli model:generate --name Categoria --attributes nombre:string,descripcion:string
+
+- npx sequelize-cli model:generate --name Agenda_Produccion --attributes fecha:date,id_libro:integer,cantidad:integer,descripcion:string,estado:string,prioridad:integer,id_usuario:integer,fec_pro:date,cantidad:integer
+
+- npx sequelize-cli model:generate --name Libro --attributes titulo:string,descripcion:string,stock:integer,minimo:integer,precio:decimal,ubicacion:string,id_categoria:integer
+
+- npx sequelize-cli model:generate --name Remision_Detalle --attributes id_remision:integer,id_libro:integer,cantidad_entregada:integer,precio:decimal,cantidad_pagada:integer,sub_total:decimal
+
+- npx sequelize-cli model:generate --name Proveedores --attributes nombre:string,descripcion:string,telefono:integer,nombre_contacto:string,email:string
