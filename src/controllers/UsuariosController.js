@@ -180,6 +180,7 @@ class UsuariosController {
             }else{
                 throw error;
             }
+            return res.send(rpta);
          
         } catch (error) {
             console.log(error);
