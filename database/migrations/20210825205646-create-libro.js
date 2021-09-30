@@ -37,6 +37,9 @@ module.exports = {
         onDelete: 'NO ACTION',
         onUpdate: 'NO ACTION',
       },
+      estado: {
+        type: Sequelize.INTEGER(1)
+      },
       // createdAt: {
       //   allowNull: false,
       //   type: Sequelize.DATE

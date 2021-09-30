@@ -23,6 +23,9 @@ module.exports = {
       email: {
         type: Sequelize.STRING(24)
       },
+      estado: {
+        type: Sequelize.INTEGER(1)
+      },
       // createdAt: {
       //   allowNull: false,
       //   type: Sequelize.DATE

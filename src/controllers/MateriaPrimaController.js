@@ -23,7 +23,11 @@ class MateriaPrimaController {
             rows: {}
         }
         try {
-            let data =  await Materia_Prima.findAll();
+            let data =  await Materia_Prima.findAll({
+                where: {
+                    estado: 0
+                }
+            });
 
             if(data.length > 0 ){
                     rpta.message = `Mostrando ${data.length} registros`;
@@ -54,7 +58,8 @@ class MateriaPrimaController {
             const { id } = req.params;
             let data =  await Materia_Prima.findAll({
                 where: {
-                    id_materia: id
+                    id_materia: id,
+                    estado: 0
                 }
             });
             
@@ -91,6 +96,7 @@ class MateriaPrimaController {
                 stock: req.body.stock,
                 minimo: req.body.minimo,
                 ubicacion: req.body.ubicacion,
+                estado: 0
             };
             
             let data = await Materia_Prima.create(matObj);
@@ -163,7 +169,9 @@ class MateriaPrimaController {
         try {
             const id_materia = req.params.id;
             
-            let data = await Materia_Prima.destroy({
+            let data = await Materia_Prima.update({
+                estado: 1
+            },{
                 where: { id_materia }
             });
 

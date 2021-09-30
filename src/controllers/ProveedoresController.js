@@ -23,7 +23,11 @@ class ProveedoresController {
             rows: {}
         }
         try {
-            let data =  await Proveedores.findAll();
+            let data =  await Proveedores.findAll({
+                where: {
+                    estado: 0
+                }
+            });
 
             if(data.length > 0 ){
                     rpta.message = `Mostrando ${data.length} registros`;
@@ -54,7 +58,8 @@ class ProveedoresController {
             const { id } = req.params;
             let data =  await Proveedores.findAll({
                 where: {
-                    id_proveedor: id
+                    id_proveedor: id,
+                    estado: 0
                 }
             });
             
@@ -89,7 +94,8 @@ class ProveedoresController {
                 descripcion: req.body.descripcion,
                 telefono: req.body.telefono,
                 nombre_contacto: req.body.nombre_contacto,
-                email: req.body.email
+                email: req.body.email,
+                estado: 0
             };
             
             let data = await Proveedores.create(provObj);
@@ -160,7 +166,9 @@ class ProveedoresController {
         try {
             const id_proveedor = req.params.id;
             
-            let data = await Proveedores.destroy({
+            let data = await Proveedores.update({
+                estado: 1
+            },{
                 where: { id_proveedor }
             });
 

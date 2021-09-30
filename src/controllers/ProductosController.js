@@ -4,8 +4,12 @@
 // const { recommendations } = require('../../config/config') 
 
 /******************** Models ********************/
-const { Producto } = require('../models')
-const { Op } = require("sequelize");
+const {
+    Producto
+} = require('../models')
+const {
+    Op
+} = require("sequelize");
 
 class ProductosController {
 
@@ -23,14 +27,17 @@ class ProductosController {
             rows: {}
         }
         try {
-            let data = await Producto.findAll();
+            let data = await Producto.findAll({
+                where: {
+                    estado: 0
+                }
+            });
 
             if (data.length > 0) {
                 rpta.message = `Mostrando ${data.length} registros`;
                 rpta.status = 200;
                 rpta.rows = data;
-            }
-            else{
+            } else {
                 rpta.message = "No hay datos";
                 rpta.status = 404;
             }
@@ -51,24 +58,25 @@ class ProductosController {
             rows: {}
         }
         try {
-            let data =  await Producto.findAll({
+            let data = await Producto.findAll({
                 where: {
                     stock: {
                         [Op.gt]: 0
-                    }
+                    },
+                    estado: 0
                 }
             });
-            
+
             if (data.length > 0) {
                 rpta.message = `Mostrando ${data.length} registro`;
                 rpta.status = 200;
-                rpta.rows = data; 
-            }else {
+                rpta.rows = data;
+            } else {
                 rpta.message = "El campo no existe";
                 rpta.status = 404;
             }
-            
-            return res.send(rpta);  
+
+            return res.send(rpta);
 
         } catch (error) {
             console.log(error);
@@ -84,20 +92,25 @@ class ProductosController {
             rows: {}
         }
         try {
-            const { id } = req.params;
-            let data =  await Producto.findAll({
-                where: { id_producto: id }
+            const {
+                id
+            } = req.params;
+            let data = await Producto.findAll({
+                where: {
+                    id_producto: id,
+                    estado: 0
+                }
             });
-            
+
             if (data.length > 0) {
                 rpta.message = `Mostrando ${data.length} registro`;
                 rpta.status = 200;
-                rpta.rows = data; 
-            }else {
+                rpta.rows = data;
+            } else {
                 rpta.message = "El campo no existe";
                 rpta.status = 404;
             }
-            
+
             return res.send(rpta);
 
         } catch (error) {
@@ -130,17 +143,18 @@ class ProductosController {
                 comision3: req.body.comision3,
                 comision4: req.body.comision4,
                 linea: req.body.linea,
-                descripcion: req.body.descripcion
+                descripcion: req.body.descripcion,
+                estado: 0
             };
 
             let data = await Producto.create(prodObj);
-            if(data){
+            if (data) {
                 rpta.message = `Registro creado con éxito`;
                 rpta.status = 200;
             }
-            
+
             return res.send(rpta);
-        
+
         } catch (error) {
             console.log(error);
             throw error;
@@ -191,14 +205,16 @@ class ProductosController {
                 linea,
                 descripcion
             }, {
-                where: { id_producto }
+                where: {
+                    id_producto
+                }
             });
 
-            if(data[0] == 1){ // si es 1 se realizo el cambio
+            if (data[0] == 1) { // si es 1 se realizo el cambio
                 rpta.message = `Datos Actualizados`;
                 rpta.status = 200;
                 // rpta.rows = results;
-            }else{
+            } else {
                 throw error;
             }
             return res.send(rpta);
@@ -218,26 +234,31 @@ class ProductosController {
         };
 
         try {
-            const { id } = req.params;
+            const {
+                id
+            } = req.params;
 
-            let data = await Producto.destroy({
-                where: { id_producto: id }
+            let data = await Producto.update({
+                estado: 1
+            },{
+                where: {
+                    id_producto: id
+                }
             });
 
-            if(data){
+            if (data) {
                 rpta.message = `Registro Eliminado`;
                 rpta.status = 200;
-            }
-            else{
+            } else {
                 console.log(error);
-                throw error; 
+                throw error;
             }
-            
+
             return res.send(rpta);
 
         } catch (error) {
             console.log(error);
-            return res.send(rpta) 
+            return res.send(rpta)
             // throw error;
         }
     }

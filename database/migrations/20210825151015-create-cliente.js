@@ -29,6 +29,9 @@ module.exports = {
       persona_contacto: {
         type: Sequelize.STRING(38)
       },
+      estado: {
+        type: Sequelize.INTEGER(1)
+      },
       // createdAt: {
       //   allowNull: false,
       //   type: Sequelize.DATE

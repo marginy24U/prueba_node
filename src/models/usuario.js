@@ -39,7 +39,8 @@ module.exports = (sequelize, DataTypes) => {
     nick: DataTypes.STRING,
     pass: DataTypes.STRING,
     cargo: DataTypes.STRING,
-    permiso: DataTypes.STRING
+    permiso: DataTypes.STRING,
+    estado: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Usuario',

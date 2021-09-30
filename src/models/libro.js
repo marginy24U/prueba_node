@@ -36,7 +36,8 @@ module.exports = (sequelize, DataTypes) => {
     minimo: DataTypes.INTEGER,
     precio: DataTypes.DECIMAL,
     ubicacion: DataTypes.STRING,
-    id_categoria: DataTypes.INTEGER
+    id_categoria: DataTypes.INTEGER,
+    estado: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Libro',

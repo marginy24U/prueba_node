@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       // Cliente -> Factura_Detalle (1-N)
       Factura.hasMany(models.Factura_Detalle,{
         as: 'Factura_Detalle',
-        foreignKey: 'id_factura_detalle',
+        foreignKey: 'id_factura',
       });
       
     }

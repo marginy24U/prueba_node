@@ -29,7 +29,8 @@ module.exports = (sequelize, DataTypes) => {
     unidad: DataTypes.STRING,
     stock: DataTypes.INTEGER,
     minimo: DataTypes.INTEGER,
-    ubicacion: DataTypes.STRING
+    ubicacion: DataTypes.STRING,
+    estado: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Materia_Prima',

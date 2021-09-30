@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     nombre: DataTypes.STRING,
-    descripcion: DataTypes.STRING
+    descripcion: DataTypes.STRING,
+    estado: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Categoria',

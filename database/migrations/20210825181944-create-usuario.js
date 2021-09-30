@@ -26,6 +26,9 @@ module.exports = {
       permiso: {
         type: Sequelize.STRING(15)
       },
+      estado: {
+        type: Sequelize.INTEGER(1)
+      },
       // createdAt: {
       //   allowNull: false,
       //   type: Sequelize.DATE

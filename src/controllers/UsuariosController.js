@@ -25,7 +25,11 @@ class UsuariosController {
         }
         
         try {
-            let data =  await Usuario.findAll();
+            let data =  await Usuario.findAll({
+                where: {
+                    estado: 0
+                }
+            });
 
             if(data.length > 0 ){
                     rpta.message = `Mostrando ${data.length} registros`;
@@ -56,7 +60,8 @@ class UsuariosController {
             const { id } = req.params;
             let data =  await Usuario.findAll({
                 where: {
-                    id_usuario: id
+                    id_usuario: id,
+                    estado: 0
                 }
             });
             
@@ -90,7 +95,10 @@ class UsuariosController {
             let data =  await Usuario.findAll({
                 where: {
                     nick: nick,
-                    pass: pass
+                    pass: pass,
+                    estado: {
+                        [Op.or]: [0, 2]
+                      }
                 }
             });
             
@@ -126,7 +134,8 @@ class UsuariosController {
                 nick: req.body.nick,
                 pass: req.body.pass,
                 cargo: req.body.cargo,
-                permiso: req.body.permiso
+                permiso: req.body.permiso,
+                estado: 0
             };
             
             let data = await Usuario.create(userObj);
@@ -156,7 +165,6 @@ class UsuariosController {
             const nombre = req.body.nombre;
             const apellido = req.body.apellido;
             const nick = req.body.nick;
-            const pass = req.body.pass;
             const cargo = req.body.cargo;
             const permiso = req.body.permiso;
             
@@ -164,7 +172,6 @@ class UsuariosController {
                 nombre,
                 apellido,
                 nick,
-                pass,
                 cargo,
                 permiso
              }, {
@@ -181,13 +188,46 @@ class UsuariosController {
                 throw error;
             }
             return res.send(rpta);
-         
+            
         } catch (error) {
             console.log(error);
             throw error
         }
-    
+    }
 
+    // Actualizar Password
+    async updatePass(req, res) {
+        let rpta = {
+            message: "Error en el servidor",
+            status: 500,
+            rows: {} 
+        };
+        try {
+            const id_usuario = req.params.id;            
+            const pass = req.body.pass;
+            
+            let data = await Usuario.update({ 
+                pass
+             }, 
+             {
+                where: {
+                    id_usuario
+                }
+            });
+            
+            if(data[0] == 1){ // si es 1 se realizo el cambio
+                rpta.message = `Contraseña Actualizada`;
+                rpta.status = 200;
+                // rpta.rows = results;
+            }else{
+                throw error;
+            }
+            return res.send(rpta);
+            
+        } catch (error) {
+            console.log(error);
+            throw error
+        }
     }
 
     // Borrar Usuarios
@@ -200,7 +240,9 @@ class UsuariosController {
         
         try {
             const id_usuario = req.params.id;
-            let data = await Usuario.destroy({
+            let data = await Usuario.update({
+                estado: 1
+            },{
                 where: { id_usuario }
             });
             

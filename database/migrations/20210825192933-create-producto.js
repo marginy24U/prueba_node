@@ -53,6 +53,9 @@ module.exports = {
       descripcion: {
         type: Sequelize.STRING(200)
       },
+      estado: {
+        type: Sequelize.INTEGER(1)
+      },
       // createdAt: {
       //   allowNull: false,
       //   type: Sequelize.DATE

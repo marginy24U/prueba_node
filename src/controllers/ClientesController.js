@@ -25,7 +25,11 @@ class ClientesController {
         };
 
         try {
-            let data = await Cliente.findAll();
+            let data = await Cliente.findAll({
+                where: {
+                    estado: 0
+                }
+            });
 
             if (data.length > 0) {
                 rpta.message = `Mostrando ${data.length} registros`;
@@ -54,7 +58,8 @@ class ClientesController {
             const { id } = req.params;
             let data =  await Cliente.findAll({
                 where: {
-                    id_cliente: id
+                    id_cliente: id,
+                    estado: 0
                 }
             });
             
@@ -90,7 +95,8 @@ class ClientesController {
                 ciudad: req.body.ciudad,
                 email: req.body.email,
                 ruc: req.body.ruc,
-                persona_contacto: req.body.persona_contacto
+                persona_contacto: req.body.persona_contacto,
+                estado: 0
             };
 
             let data = await Cliente.create(clientObj);
@@ -167,7 +173,9 @@ class ClientesController {
         try {
             const id_cliente = req.params.id;
 
-            let data = await Cliente.destroy({
+            let data = await Cliente.update({
+                estado: 1
+            },{
                 where: { id_cliente }
             });
 
